@@ -5,7 +5,7 @@ A React hook that keeps an instance of a class and re-renders the component when
 ## Installation
 
 ```sh
-npm install use-instance
+npm install use-obj
 ```
 
 ## Usage
@@ -46,7 +46,7 @@ class Pet {
 }
 
 export function App() {
-  const user = obj(() => new User("John Doe", [new Pet("Fluffy")]))
+  const user = useObj(() => new User("John Doe", [new Pet("Fluffy")]))
 
   return (
     <div>
