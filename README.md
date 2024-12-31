@@ -1,4 +1,4 @@
-# use-instance
+# use-obj
 
 A React hook that keeps an instance of a class and re-renders the component when the instance changes.
 
