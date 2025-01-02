@@ -23,13 +23,19 @@ class User {
     this._pets.push(pet)
   }
 
+  async changeNameAsync(name: string) {
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+    this.name = name
+  }
+
   get pets() {
     return this._pets
   }
 }
 
 class Pet {
-  constructor(public name: string) {}
+  constructor(public name: string) {
+  }
 }
 
 export function App() {
@@ -50,6 +56,10 @@ export function App() {
         }}
       >
         Change Name (Direct)
+      </button>
+
+      <button onClick={() => user.changeNameAsync("Bob Doe")}>
+        Change Name (async)
       </button>
 
       <button onClick={() => user.print()}>Print</button>
