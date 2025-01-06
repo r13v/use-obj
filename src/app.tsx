@@ -1,5 +1,7 @@
 import { useObj } from "../lib"
 
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
 class User {
   constructor(
     public name: string,
@@ -24,8 +26,14 @@ class User {
   }
 
   async changeNameAsync(name: string) {
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    await wait(1000)
     this.name = name
+  }
+
+  async changeNameAsyncThrow(name: string) {
+    await wait(1000)
+    this.name = name
+    throw new Error("Error changing name")
   }
 
   get pets() {
@@ -34,8 +42,7 @@ class User {
 }
 
 class Pet {
-  constructor(public name: string) {
-  }
+  constructor(public name: string) {}
 }
 
 export function App() {
@@ -60,6 +67,12 @@ export function App() {
 
       <button onClick={() => user.changeNameAsync("Bob Doe")}>
         Change Name (async)
+      </button>
+
+      <button
+        onClick={async () => user.changeNameAsyncThrow("Tom Doe").catch(alert)}
+      >
+        Change Name (async throw)
       </button>
 
       <button onClick={() => user.print()}>Print</button>

@@ -13,6 +13,8 @@ npm install use-obj
 ```tsx
 import { useObj } from "use-obj"
 
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
 class User {
   constructor(
     public name: string,
@@ -34,6 +36,17 @@ class User {
 
   addPet(pet: Pet) {
     this._pets.push(pet)
+  }
+
+  async changeNameAsync(name: string) {
+    await wait(1000)
+    this.name = name
+  }
+
+  async changeNameAsyncThrow(name: string) {
+    await wait(1000)
+    this.name = name
+    throw new Error("Error changing name")
   }
 
   get pets() {
@@ -63,6 +76,16 @@ export function App() {
         }}
       >
         Change Name (Direct)
+      </button>
+
+      <button onClick={() => user.changeNameAsync("Bob Doe")}>
+        Change Name (async)
+      </button>
+
+      <button
+        onClick={async () => user.changeNameAsyncThrow("Tom Doe").catch(alert)}
+      >
+        Change Name (async throw)
       </button>
 
       <button onClick={() => user.print()}>Print</button>
